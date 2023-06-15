@@ -22,21 +22,15 @@ EFI下载：
 
 [百度网盘](https://pan.baidu.com/s/17imiltH9gtgzVnm6l66AZQ?pwd=xzev)
 
-### 1 关闭安全启动
+### 1 制作启动盘
 
-<u>Security</u> > <u>Secure Boot</u>
-
-![Xnip2023-06-14_20-14-17](images/Xnip2023-06-14_20-14-17.jpg)
-
-### 2 制作启动盘
-
-#### 2.1 刷写macOS安装镜像
+#### 1.1 刷写macOS安装镜像
 
 使用 [etcher](https://github.com/balena-io/etcher) 把 macOS镜像 写入U盘
 
 ![Xnip2023-06-13_21-37-49](images/Xnip2023-06-13_21-37-49.jpg)
 
-#### 2.2 制作启动分区
+#### 1.2 制作启动分区
 
 使用 [diskgenius](https://www.diskgenius.cn) 划分一个 OpenCore 分区(建议最少500m)，格式化为FAT32。
 
@@ -48,31 +42,39 @@ EFI下载：
 
 ![Snipaste_2023-06-13_16-46-44](images/Snipaste_2023-06-13_16-46-44.png)
 
-#### 2.3 划分 macOS 安装分区
+#### 1.3 划分 macOS 安装分区
 
 划分一个分区留作 **macOS的系统分区**，格式随意，大小自己把握。我划分了1T
 
 ![Snipaste_2023-06-13_17-08-49](images/Snipaste_2023-06-13_17-08-49.png)
 
-### 3 安装黑苹果
+### 2 安装黑苹果
 
-#### 3.1 禁用核显
+#### 2.1 禁用核显驱动
 
 使用 [OCAuxiliaryTools](https://github.com/ic005k/OCAuxiliaryTools) 禁用核显，保存。 (每次安装或升级系统都需要禁用)
 
 ![Xnip2023-06-13_21-33-30](images/Xnip2023-06-13_21-33-30.jpg)
 
-#### 3.2 开始安装
+#### 2.2 关闭安全启动
+
+重启按 F2 进入BIOS
+
+<u>Security</u> > <u>Secure Boot</u>
+
+![Xnip2023-06-14_20-14-17](images/Xnip2023-06-14_20-14-17.jpg)
+
+#### 2.3 开始安装
 
 重启选择启动项 OpenCore
 
-##### 3.2.1 EB错误
+##### 2.3.1 EB错误
 
 这个错误多重启几次就好了，我目前没有解决方法
 
 ![Xnip2023-06-14_20-18-36](images/Xnip2023-06-14_20-18-36.jpg)
 
-#### 3.3 抹掉分区
+#### 2.4 抹掉分区
 
 进入安装系统后点击 **磁盘工具** 抹掉刚刚给 macOS 划分的分区 ，格式选择 **APFS**
 
@@ -84,19 +86,19 @@ EFI下载：
 
 ![Xnip2023-06-14_00-56-17](images/Xnip2023-06-14_00-56-17.jpg)
 
-#### 3.3 进入系统
+#### 2.5 进入系统
 
 重启进入 pe 或 windows 使用 [OCAuxiliaryTools](https://github.com/ic005k/OCAuxiliaryTools) 启用核显，保存。
 
-再次重启进入 OpenCore 引导，Reset NVRAM 进入macOS
+再次重启进入 OpenCore 引导，Reset NVRAM 进入macOS (每次修改配置后都要记得Reset NVRAM)
 
 ![IMG_3916](images/IMG_3916.jpeg)
 
-### 4 完工
+### 3 完工
 
 ![Xnip2023-06-13_22-06-04](images/Xnip2023-06-13_22-06-04.jpg)
 
-### 5 修改核显的显存
+### 4 修改核显的显存
 
 **==解锁修改显存并没有明显提升，最多只能修改为1G，且需要解锁BIOS。如果BIOS版本较新的需要降级，并存在一定风险==**
 
@@ -116,7 +118,7 @@ EFI下载：
 
 **==如果有这两个选项你的BIOS就不需要降级了，请略过==**。
 
-##### 5.0.1 BIOS降级
+##### 4.0.1 BIOS降级
 
 **降级有风险！！！请考虑好再试**。本人因降级BIOS时操作不当，导致BIOS电脑无法开机，遂去售后**200**块解决(已经过保)。
 
@@ -144,7 +146,7 @@ EFI下载：
 
 现在你再进入系统进行解锁BIOS就可以了
 
-#### 5.1 设置核显显存
+#### 4.1 设置核显显存
 
 按照以下路径与图片设置核显显存（核显似乎对显存的设置有1G的限制）：
 
